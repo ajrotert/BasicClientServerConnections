@@ -11,18 +11,19 @@ public class NewClient extends Thread
             Server.connect = false;
             Socket client = Server.socket.accept();
             Server.connect = true;
-            PrintWriter pout = new PrintWriter(client.getOutputStream(), true);
+            ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
                     
-            pout.println("Connection Successful");
+            oos.writeObject("Connection Successful");
                     
             System.out.println("Client Thread: Client Connected");
-            DataInputStream dIn = new DataInputStream(client.getInputStream());
-            String line;
-            while((line = dIn.readLine()) != null)
-            {
-                System.out.println("Client Thread: " + line);
-            }
+            ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
             
+            String message ="No Message Recieved";
+            try{message = (String) ois.readObject();}
+            catch(Exception ioe){}
+
+            ois.close();
+            oos.close();
             client.close();
             System.out.println("Client Thread: Client Disconnected");
         }

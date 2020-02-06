@@ -6,7 +6,7 @@ public class Client
 {
     public static String IPADDRESS;
     public static int PORT;
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
         PORT = 6013;
         Scanner input = new Scanner(System.in);
@@ -14,20 +14,17 @@ public class Client
         IPADDRESS = input.nextLine();
         try{
             Socket socket = new Socket(IPADDRESS, PORT);
-            InputStream in = socket.getInputStream();
-            BufferedReader bin = new BufferedReader(new InputStreamReader(in));
+
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            String Recieved = (String) ois.readObject();
+            System.out.println(Recieved);
             
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            out.writeByte(1);
-            out.writeUTF("Client Connected: " + getNetworkAddress());
-            out.flush();
-            
-            String line;
-            while((line = bin.readLine()) != null)
-            {
-                System.out.println(line);
-            }
-            
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+
+            oos.writeObject("Client Connected: " + getNetworkAddress());
+
+            oos.close();
+            ois.close();
             socket.close();
         }
         catch (IOException ioe){
