@@ -21,7 +21,7 @@ public class NewClient extends Thread
             String message ="No Message Recieved";
             try{message = (String) ois.readObject();}
             catch(Exception ioe){}
-
+            System.out.println(message);
             ois.close();
             oos.close();
             client.close();

@@ -4,11 +4,12 @@ import java.net.InetAddress;
 
 public class ServerControls extends Thread
 {
+    private static final String CLIST = "Commands:\n\t(S) Stop server\n\n\n\t(T) Thread ID\n\t(C) Command List\n\t(P) Port Number\n\t(I) IP Address\n\t(P) Page";
     public void run() 
     {
         Scanner input = new Scanner(System.in);
         
-        System.out.println("Commands:\n\t(S) Stop server\n\t(T) Thread ID\n\t(I) IP Address\n\t(P) Port Number\n\t(C) Command List");
+        System.out.println(CLIST);
 
         try
         {
@@ -25,7 +26,7 @@ public class ServerControls extends Thread
                 if(usr.equals("P") || usr.equals("p"))
                     System.out.println("Port: " + Server.PORT);
                 if(usr.equals("C") || usr.equals("c"))
-                        System.out.println("Commands:\n\t(S) Stop server\n\t(T) Thread ID\n\t(I) IP Address\n\t(P) Port Number\n\t(C) Command List");
+                        System.out.println(CLIST);
                 usr = input.nextLine();
             }
             Server.available = false;
