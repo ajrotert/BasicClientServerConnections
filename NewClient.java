@@ -18,10 +18,24 @@ public class NewClient extends Thread
             System.out.println("Client Thread: Client Connected");
             ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
             
-            String message ="No Message Recieved";
-            try{message = (String) ois.readObject();}
-            catch(Exception ioe){}
-            System.out.println(message);
+            while(client.isConnected())
+            {
+                String message = null;
+                try{message = (String) ois.readObject();}
+                catch(Exception ioe){}
+                if(message != null)
+                {
+                    System.out.println(message);
+                }
+                try
+                {
+                    Thread.sleep(1000);
+                }
+                catch(InterruptedException ex)
+                {
+                    Thread.currentThread().interrupt();
+                }
+            }
             ois.close();
             oos.close();
             client.close();
