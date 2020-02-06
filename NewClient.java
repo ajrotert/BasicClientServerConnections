@@ -16,6 +16,13 @@ public class NewClient extends Thread
             pout.println("Connection Successful");
                     
             System.out.println("Client Thread: Client Connected");
+            DataInputStream dIn = new DataInputStream(client.getInputStream());
+            String line;
+            while((line = dIn.readLine()) != null)
+            {
+                System.out.println("Client Thread: " + line);
+            }
+            
             client.close();
             System.out.println("Client Thread: Client Disconnected");
         }

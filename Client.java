@@ -17,16 +17,40 @@ public class Client
             InputStream in = socket.getInputStream();
             BufferedReader bin = new BufferedReader(new InputStreamReader(in));
             
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            out.writeByte(1);
+            out.writeUTF("Client Connected: " + getNetworkAddress());
+            out.flush();
+            
             String line;
             while((line = bin.readLine()) != null)
             {
                 System.out.println(line);
             }
+            
             socket.close();
         }
         catch (IOException ioe){
             System.err.println(ioe);
         }
         System.out.println("Ended Session");
+    }
+    public static String getNetworkAddress(){
+        String network_IP = ""; 
+        try
+        { 
+            URL url_name = new URL("http://bot.whatismyipaddress.com"); 
+  
+            BufferedReader sc = 
+            new BufferedReader(new InputStreamReader(url_name.openStream())); 
+  
+            // reads system IPAddress 
+            network_IP = sc.readLine().trim(); 
+        } 
+        catch (Exception e) 
+        { 
+            System.out.println("Cannot find network IP address");
+        } 
+        return network_IP;
     }
 }
