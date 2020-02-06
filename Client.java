@@ -29,6 +29,8 @@ public class Client
         IPADDRESS = input.nextLine();
         ObjectInputStream ois;
         ObjectOutputStream oos;
+        ClientControls control = new ClientControls();
+        control.start();
         try{
             Socket socket = new Socket(IPADDRESS, PORT);
 
