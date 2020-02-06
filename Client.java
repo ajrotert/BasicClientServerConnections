@@ -6,23 +6,56 @@ public class Client
 {
     public static String IPADDRESS;
     public static int PORT;
+    public static boolean available; 
+    public static String send;
+    public static InetAddress inetAddress;
+    
     public static void main(String[] args) throws Exception
     {
         PORT = 6013;
+        available = true;
+        send = null;
         Scanner input = new Scanner(System.in);
+        try{
+            inetAddress = InetAddress.getLocalHost();
+            System.out.println("IP: " + inetAddress.getHostAddress());
+            System.out.println("Public IP: " + getNetworkAddress());
+            System.out.println("Port: " + PORT);
+        }
+        catch(Exception e){
+            System.out.println("Could not find IP address");
+        }
         System.out.print("Enter an IP Address (127.0.0.1): ");
         IPADDRESS = input.nextLine();
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
         try{
             Socket socket = new Socket(IPADDRESS, PORT);
 
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
             String Recieved = (String) ois.readObject();
             System.out.println(Recieved);
             
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos = new ObjectOutputStream(socket.getOutputStream());
 
             oos.writeObject("Client Connected: " + getNetworkAddress());
-
+            while(available)
+            {
+                if(send!=null)
+                {
+                    oos.flush();
+                    oos.writeObject(send);
+                    send = null;
+                }
+                try
+                {
+                    Thread.sleep(1000);
+                }
+                catch(InterruptedException ex)
+                {
+                    Thread.currentThread().interrupt();
+                }
+            }
             oos.close();
             ois.close();
             socket.close();
