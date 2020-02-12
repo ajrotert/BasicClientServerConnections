@@ -9,7 +9,7 @@ public class NewClient extends Thread
     public void run()
     {
         try{
-            System.out.println("Client Thread: Waiting for connection");
+            System.out.println("Client Thread " + Thread.currentThread().getId() + ": Waiting for connection");
             Server.connect = false;
             Socket client = Server.socket.accept();
             Server.connect = true;
@@ -17,17 +17,29 @@ public class NewClient extends Thread
                     
             oos.writeObject("Connection Successful");
                     
-            System.out.println("Client Thread: Client Connected");
+            System.out.println("Client Thread " + Thread.currentThread().getId() + ": Client Connected");
             ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
             
-            while(!client.isClosed())
+            //NewClientInput NCI = new NewClientInput();
+            //NCI.run(client);
+            
+            boolean disconnected = true;
+            while(!client.isClosed() && disconnected)
             {
                 String message = null;
                 try{message = (String) ois.readObject();}
-                catch(Exception ioe){}
+                catch(Exception ioe){
+                    System.out.println("Client Thread " + Thread.currentThread().getId() + ": Client Disconnected");
+                    ois.close();
+                    disconnected=false;
+                }
                 if(message != null)
                 {
                     System.out.println(message);
+                }
+                else
+                {
+                    disconnected=true;
                 }
                 
                 try
@@ -39,15 +51,14 @@ public class NewClient extends Thread
                     System.out.println("Thread Error");
                     Thread.currentThread().interrupt();
                 }
-                System.out.println(client.isClosed());
             }
             ois.close();
             oos.close();
             client.close();
-            System.out.println("Client Thread: Client Disconnected");
+            System.out.println("Client Thread " + Thread.currentThread().getId() + ": Ending Thread.");
         }
         catch (IOException ioe){
-            System.out.println("Client Thread: Client Error Occured");
+            System.out.println("Client Thread " + Thread.currentThread().getId() + ": Client Error Occured");
             System.out.println(ioe);
 
         }
