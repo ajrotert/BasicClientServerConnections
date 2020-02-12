@@ -1,14 +1,18 @@
+package BasicClientServerConnections;
+
 import java.net.*;
 import java.io.*;
 
 public class Server
 {
+    private static final String BuildNumber = "1.0.1";
     public static boolean available;
     public static boolean connect;
     public static InetAddress inetAddress;
     public static ServerSocket socket;
     public static final int PORT = 6013;
     public static void main(String[] args){
+        System.out.println("Version: " + BuildNumber);
         available = true;
         connect = true;
         boolean next = true;
@@ -55,6 +59,7 @@ public class Server
                 }
                 catch(InterruptedException ex)
                 {
+                    System.out.println("Server Interrupted");
                     Thread.currentThread().interrupt();
                 }
                 

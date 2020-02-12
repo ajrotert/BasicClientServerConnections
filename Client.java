@@ -1,3 +1,5 @@
+package BasicClientServerConnections;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -55,9 +57,11 @@ public class Client
                 }
                 catch(InterruptedException ex)
                 {
+                    System.out.println("Client Interrupted");
                     Thread.currentThread().interrupt();
                 }
             }
+            
             oos.close();
             ois.close();
             socket.close();

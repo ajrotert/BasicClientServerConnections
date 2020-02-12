@@ -1,10 +1,12 @@
+package BasicClientServerConnections;
+
 import java.util.*;
 import java.net.*;
 import java.net.InetAddress;
 
 public class ServerControls extends Thread
 {
-    private static final String CLIST = "Commands:\n\t(S) Stop server\n\n\n\t(T) Thread ID\n\t(C) Command List\n\t(P) Port Number\n\t(I) IP Address\n\t(P) Page";
+    private static final String CLIST = "Commands:\n\t(S) Stop server\n\n\t(T) Thread ID\n\t(C) Command List\n\t(P) Port Number\n\t(I) IP Address\n\t(P) Page";
     public void run() 
     {
         Scanner input = new Scanner(System.in);
@@ -16,7 +18,7 @@ public class ServerControls extends Thread
             String usr = input.nextLine();
             while(!(usr.equals("S") || usr.equals("s")))
             {
-                if(usr.equals("T") || usr.equals("T"))
+                if(usr.equals("T") || usr.equals("t"))
                     System.out.println("Thread ID: " + Thread.currentThread().getId());
                 if(usr.equals("I") || usr.equals("i"))
                 {
