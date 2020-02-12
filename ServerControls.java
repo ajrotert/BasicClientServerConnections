@@ -6,7 +6,7 @@ import java.net.InetAddress;
 
 public class ServerControls extends Thread
 {
-    private static final String CLIST = "Commands:\n\t(S) Stop server\n\n\t(T) Thread ID\n\t(C) Command List\n\t(P) Port Number\n\t(I) IP Address\n\t(P) Port Number\n\t";
+    private static final String CLIST = "Commands:\n\t(S) Stop server\n\t(T) Thread ID\n\t(C) Command List\n\t(P) Port Number\n\t(I) IP Address\n\t(M) Send message to all clients.\n\t";
     public void run() 
     {
         Scanner input = new Scanner(System.in);
@@ -29,6 +29,12 @@ public class ServerControls extends Thread
                     System.out.println("Port: " + Server.PORT);
                 if(usr.equals("C") || usr.equals("c"))
                         System.out.println(CLIST);
+                if(usr.equals("m") || usr.equals("M"))
+                {
+                    System.out.println("Server Controls: Enter a message to send: ");
+                        Server.send = "Server: "+ input.nextLine();
+                        Server.send_number++;
+                }
                 usr = input.nextLine();
             }
             Server.available = false;

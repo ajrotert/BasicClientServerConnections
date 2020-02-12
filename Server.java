@@ -11,11 +11,15 @@ public class Server
     public static InetAddress inetAddress;
     public static ServerSocket socket;
     public static final int PORT = 6013;
+    public static String send;
+    public static int send_number;
     public static void main(String[] args){
         System.out.println("Version: " + BuildNumber);
         available = true;
         connect = true;
         boolean next = true;
+        send = null;
+        send_number=0;
         //Server controls allow you to stop new connections
         ServerControls controls = new ServerControls();
         inetAddress = null;
