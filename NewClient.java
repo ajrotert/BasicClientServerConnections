@@ -29,6 +29,19 @@ public class NewClient extends Thread
             NCO.run();
             
             available =true;
+            while(Server.available)
+            {
+                try
+                {
+                    Thread.sleep(1000);
+                }
+                catch(InterruptedException ex)
+                {
+                    System.out.println("New Client Interrupted");
+                    Thread.currentThread().interrupt();
+                }
+            }
+            available = false;
             
             ois.close();
             oos.close();

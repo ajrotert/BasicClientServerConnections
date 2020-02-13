@@ -51,6 +51,19 @@ public class Client
             ClientOutput CO = new ClientOutput();
             CO.start();
             
+            while(available)
+            {
+                try
+                {
+                    Thread.sleep(1000);
+                }
+                catch(InterruptedException ex)
+                {
+                    System.out.println("Client Output Interrupted");
+                    Thread.currentThread().interrupt();
+                }
+            }
+            
             oos.close();
             ois.close();
             socket.close();
