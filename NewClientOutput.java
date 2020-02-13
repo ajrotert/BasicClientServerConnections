@@ -8,14 +8,16 @@ public class NewClientOutput extends Thread
 {
     public void run(){
         ObjectOutputStream oos = NewClient.oos;
-        int local_send = Server.send_number;
+        int local_send = Server.send_number+1;
         try{
+
         while(NewClient.available)
             {
-                if(Server.send!=null && Server.send_number> local_send)
+                if(Server.send!=null && Server.send_number>= local_send)
                 {
-                    oos.flush();
+                    System.out.println("New Client Output: Message Recieved");
                     oos.writeObject(Server.send);
+                    oos.flush();
                     local_send++;
                 }
                 try
@@ -29,7 +31,8 @@ public class NewClientOutput extends Thread
                 }
             }
         }
-        catch(Exception e){}
+        catch(Exception e){
+        System.out.println("ERROR");}
     }
 
 }

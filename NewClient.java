@@ -23,10 +23,12 @@ public class NewClient extends Thread
             System.out.println("Client Thread " + Thread.currentThread().getId() + ": Client Connected");
             ois = new ObjectInputStream(client.getInputStream());
             
+            System.out.println("Client Thread " + Thread.currentThread().getId() + ": Input Started");
             NewClientInput NCI = new NewClientInput();
-            NCI.run();
+            NCI.start();
+            System.out.println("Client Thread " + Thread.currentThread().getId() + ": Output Started");
             NewClientOutput NCO = new NewClientOutput();
-            NCO.run();
+            NCO.start();
             
             available =true;
             while(Server.available)

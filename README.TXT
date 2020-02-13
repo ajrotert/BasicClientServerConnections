@@ -21,3 +21,9 @@ HOW TO START THIS PROJECT:
     Start the server files
     Locate IP address of the server, on the clients side run the program, and connect to the server IP address
 AUTHORS: Andrew Rotert
+
+EXPLAIN:
+The server starts, clients connect to it. Clients can send messages to server, and server can send messages to clients
+
+WHATS NEXT:
+I completed my inital goal for this project. The next phase may be to make it a desktop application. 
