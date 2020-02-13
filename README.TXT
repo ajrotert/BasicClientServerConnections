@@ -1,12 +1,23 @@
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
-------------------------------------------------------------------------
-
-PROJECT TITLE: Basic Client Server Connection
-PURPOSE OF PROJECT: Build knolodge from Operating Systems
-VERSION or DATE: 1.0
-HOW TO START THIS PROJECT: Locate IP address, run one on the client computer, other on the server side
+PROJECT TITLE: Basic Client Server Connection using JAVA
+PURPOSE OF PROJECT: Using java, explore theroies learned in Operating Systems
+VERSION or DATE: 1.0.1
+ABOUT:
+Server:
+    Classes:
+                Server:         This is the parent thread. Its main purpose is to find connections for new clients. It also will starts the server controls and Holds information about its self.
+                ServerControls: This is a child thread. Its purpose is to read server side input, and handle a few functions.
+                NewClient:      This is a child thread. Its purpose is to wait for a client to connect, and handle the client needs. This will also start the input and output on the server for a client.
+                NewClientInput: This is a child thread. It will wait for input from a client, and print it off.
+                NewClientOutput:This is a child thread. It will wait for input from a server and send it to its connected client.
+Client
+    Classes:
+                Client:         This is a parent thread. Its main purpose is to connect to a server. It will start client controls and hold information about itself.
+                ClientControls: This is a child thread. Its purpose is to read client side inpus and handle a few functions.
+                ClientOutput:   This is a child thread. Its purpose is to wait for output from a client and send it to the server. 
+                ClientInput:    This is a child thread. It will wait for output from a server and print it off.
+HOW TO START THIS PROJECT:
+    Download the server files on a host machine running java.
+    Download the client files on a client machine running java. 
+    Start the server files
+    Locate IP address of the server, on the clients side run the program, and connect to the server IP address
 AUTHORS: Andrew Rotert
-USER INSTRUCTIONS: Locate IP Address

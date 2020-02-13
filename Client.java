@@ -11,6 +11,8 @@ public class Client
     public static boolean available; 
     public static String send;
     public static InetAddress inetAddress;
+    public static ObjectInputStream ois;
+    public static ObjectOutputStream oos;
     
     public static void main(String[] args) throws Exception
     {
@@ -29,8 +31,8 @@ public class Client
         }
         System.out.print("Enter an IP Address (127.0.0.1): ");
         IPADDRESS = input.nextLine();
-        ObjectInputStream ois;
-        ObjectOutputStream oos;
+        //ObjectInputStream ois;
+        //ObjectOutputStream oos;
         ClientControls control = new ClientControls();
         control.start();
         try{
