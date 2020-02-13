@@ -25,6 +25,8 @@ public class NewClient extends Thread
             
             NewClientInput NCI = new NewClientInput();
             NCI.run();
+            NewClientOutput NCO = new NewClientOutput();
+            NCO.run();
             
             available =true;
             

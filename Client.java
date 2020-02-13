@@ -45,24 +45,11 @@ public class Client
             oos = new ObjectOutputStream(socket.getOutputStream());
 
             oos.writeObject("Client Connected: " + getNetworkAddress());
-            while(available)
-            {
-                if(send!=null)
-                {
-                    oos.flush();
-                    oos.writeObject(send);
-                    send = null;
-                }
-                try
-                {
-                    Thread.sleep(1000);
-                }
-                catch(InterruptedException ex)
-                {
-                    System.out.println("Client Interrupted");
-                    Thread.currentThread().interrupt();
-                }
-            }
+            
+            ClientInput CI = new ClientInput();
+            CI.start();
+            ClientOutput CO = new ClientOutput();
+            CO.start();
             
             oos.close();
             ois.close();
