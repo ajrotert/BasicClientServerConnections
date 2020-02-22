@@ -12,23 +12,20 @@ public class Main extends Application {
     Label InputLabel;
     Label OutputLabel;
     TextField inputs;
-    static Client client;
-    public static String IP_CONNECT;
-    public static Boolean connected;
-    private static Client_Runtime CR;
+    static Server server;
+    private static Server_Runtime SR;
     
-    private static final String CLIST = "Commands:\n\t(E) Exit Session\n\t(T) Thread ID\n\t(C) Clear Output\n\t(P) Print IP Address\n\t(S) Send IP Address to Host\n\t(...) Send a message to the host\n\t";
+    private static final String CLIST = "Commands:\n\t(S) Stop server\n\t(T) Thread ID\n\t(C) Clear Screen\n\t(P) Port Number\n\t(I) IP Address\n\t(...) Send message to all clients.\n\t";
  
     public static void main(String[] args) {
-    	connected = false;
-    	IP_CONNECT = "";
-
-        CR = new Client_Runtime();
+        SR = new Server_Runtime();
 
         launch(args); // It calls start method defined bellow...
         System.out.println("END OF PROGRAM");
-        CR.interrupt();
+        Server.available = false;
+        SR.interrupt();
     }
+ 
     public void UpdateText(String text)
     {
     	Platform.runLater( () -> {
@@ -41,64 +38,56 @@ public class Main extends Application {
     	InputLabel.setText("");
     	});
     }
-
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-        window.setTitle("Client Computer");
-                
+        window.setTitle("Host Computer");
+        
         InputLabel = new Label(CLIST);
         OutputLabel = new Label();
         button = new Button("Send");
         inputs = new TextField();
+
         button.setOnAction(e->{
         String usr = inputs.getText();
         String out = OutputLabel.getText();
-        if(!usr.equals(""))
-        {
-	        if(usr.equals("E") || usr.equals("e"))
+	        if(usr.equals("S") || usr.equals("s"))
 	        {
-	        	Client.available = false;
-	        	connected = false;
+	        	Server.available = false;
 	        	UpdateInput();
 	        }
 	        else if(usr.equals("T") || usr.equals("t"))
 	        {
-	            System.out.println("(Main) Thread ID: " + Thread.currentThread().getId());
+	            System.out.println("Thread ID: " + Thread.currentThread().getId());
 	            out += "Thread ID: " + Thread.currentThread().getId();
+	            OutputLabel.setText(out);
+	        }
+	        else if(usr.equals("I") || usr.equals("i"))
+	        {
+	            System.out.println("IP: " + server.inetAddress.getHostAddress());
+	            System.out.println("Public IP: " + Server.getNetworkAddress());
+	            out+= "\nIP: " + server.inetAddress.getHostAddress() + "\nPublic IP: " + Server.getNetworkAddress() + "\n";
 	            OutputLabel.setText(out);
 	        }
 	        else if(usr.equals("P") || usr.equals("p"))
 	        {
-	            System.out.println("(Main) IP: " + Client.inetAddress.getHostAddress());
-	            System.out.println("(Main) Public IP: " + Client.getNetworkAddress());
-	            out+= "\nIP: " + Client.inetAddress.getHostAddress() + "\nPublic IP: " + Client.getNetworkAddress() + "\n";
+	            System.out.println("Port: " + Server.PORT);
+	            out+="\nPort: " + Server.PORT;
 	            OutputLabel.setText(out);
 	        }
-	        else if(usr.equals("S") || usr.equals("s"))
-            {
-                Client.send = "Client: " + Client.getNetworkAddress();
-                out+= "Sent\n";
-	            OutputLabel.setText(out);
-            }
 	        else if(usr.equals("C") || usr.equals("c"))
 	        {
 	                System.out.println(CLIST);
-	                out= "";
+	                out = "" ;
 	                OutputLabel.setText(out);
 	        }
 	        else
 	        {
-	        	if(connected)
-	                Client.send = "Client: "+ usr;
-	        	else
-	        	{
-	        		IP_CONNECT = usr;
-	        		connected=true;
-	        	}
+	                Server.send = "Server: "+ usr;
+	                Server.send_number++;
 	        }
-            inputs.setText("");
-        }
+	        inputs.setText("");
 
         });
         
@@ -110,8 +99,8 @@ public class Main extends Application {
  
         window.setScene(scene);
         window.show();
-        client = new Client(this);
-        CR.start();
-        System.out.println("Setup Complete");
+
+        server = new Server(this);
+        SR.start();
     }
 }

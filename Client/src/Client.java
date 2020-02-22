@@ -102,15 +102,19 @@ public class Client
                     out = "Client Output Interrupted (2)\n";
                     main_ref.UpdateText(out);
                     Thread.currentThread().interrupt();
+                    available = false;
                 }
             }
             
             oos.close();
             ois.close();
             socket.close();
+            CI.interrupt();
+            CO.interrupt();
         }
         catch (IOException ioe){
             main_ref.UpdateText("Connection Failed\n");
+            main_ref.UpdateInput();
         }
         System.out.println("(Client) Ended Session");
         out ="Ended Session \n";
@@ -132,10 +136,22 @@ public class Client
         } 
         catch (Exception e) 
         { 
-            System.out.println("(Client) Cannot find network IP address");
-            String out = "";
-            out = "Cannot find network IP address\n";
-            main_ref.UpdateText(out);
+        	
+        	try{
+        		URL url_name = new URL("http://checkip.amazonaws.com"); 
+        		  
+                BufferedReader sc = 
+                new BufferedReader(new InputStreamReader(url_name.openStream())); 
+      
+                // reads system IPAddress 
+                network_IP = sc.readLine().trim(); 
+        	}
+        	catch(Exception ee)
+        	{
+        		System.out.println("Cannot find network IP address");
+                main_ref.UpdateText("Cannot find network IP address\n");
+        	}
+            
         } 
         return network_IP;
     }
