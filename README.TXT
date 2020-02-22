@@ -1,6 +1,17 @@
 PROJECT TITLE: Basic Client Server Connection using JAVA
 PURPOSE OF PROJECT: Using java, explore theroies learned in Operating Systems
 VERSION or DATE: 1.0.1
+
+ABOUT:
+A client application can connect to a host applications using sockets.
+
+HOW TO USE:
+Download the Host.jar and Client.jar files. Any client can connect to the host by inputing the ip address that the host is running on. 
+
+
+
+
+/************************************************* Command Line Version *************************************************/
 ABOUT:
 Server:
     Classes:
