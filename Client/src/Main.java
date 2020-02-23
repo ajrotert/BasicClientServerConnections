@@ -3,6 +3,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
  
 public class Main extends Application {
@@ -108,6 +109,8 @@ public class Main extends Application {
  
         Scene scene = new Scene(layout, 350, 400);
  
+        scene.setFill(Color.DARKGRAY);
+        
         window.setScene(scene);
         window.show();
         client = new Client(this);

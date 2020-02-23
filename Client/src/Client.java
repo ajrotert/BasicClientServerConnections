@@ -59,6 +59,7 @@ public class Client
                 out+= "Client Output Interrupted\n";
                 main_ref.UpdateText(out);
                 Thread.currentThread().interrupt();
+                Main.connected = true;
             }
         	IPADDRESS = Main.IP_CONNECT;
         }
