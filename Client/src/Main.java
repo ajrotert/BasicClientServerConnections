@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -13,6 +14,7 @@ public class Main extends Application {
     Label InputLabel;
     Label OutputLabel;
     TextField inputs;
+    ScrollPane scroller;
     static Client client;
     public static String IP_CONNECT;
     public static Boolean connected;
@@ -52,6 +54,7 @@ public class Main extends Application {
         OutputLabel = new Label();
         button = new Button("Send");
         inputs = new TextField();
+        scroller = new ScrollPane();
         button.setOnAction(e->{
         String usr = inputs.getText();
         String out = OutputLabel.getText();
@@ -67,7 +70,7 @@ public class Main extends Application {
 	        {
 	            System.out.println("(Main) Thread ID: " + Thread.currentThread().getId());
 	            out += "Thread ID: " + Thread.currentThread().getId();
-	            OutputLabel.setText(out);
+	            OutputLabel.setText(out + "\n");
 	        }
 	        else if(usr.equals("P") || usr.equals("p"))
 	        {
@@ -103,9 +106,14 @@ public class Main extends Application {
 
         });
         
+        scroller.setContent(OutputLabel);
+        scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+        scroller.setMinHeight(200);
+        scroller.setMaxHeight(200);
+        
         VBox layout = new VBox();
       
-        layout.getChildren().addAll(OutputLabel, InputLabel, inputs, button);
+        layout.getChildren().addAll(scroller, InputLabel, inputs, button);
  
         Scene scene = new Scene(layout, 350, 400);
  

@@ -19,8 +19,8 @@ public class ClientOutput extends Thread
                 }
                 catch(InterruptedException ex)
                 {
-                    System.out.println("(ClientOutput) Server Interrupted");
-                    Client.main_ref.UpdateText("(ClientOutput) Server Interrupted\n");
+                    System.out.println("(Client Output) Server Interrupted");
+                    Client.main_ref.UpdateText("(Client Output) Server Interrupted\n");
                     Thread.currentThread().interrupt();
                 }
             }
