@@ -5,7 +5,9 @@ public class ClientOutput extends Thread
     ObjectOutputStream oos = Client.oos;
     public void run(){
         try{
-        while(Client.available)
+     	   long start = System.currentTimeMillis();
+
+     	   while(Client.available)
             {
                 if(Client.send!=null)
                 {
@@ -24,6 +26,10 @@ public class ClientOutput extends Thread
                     Thread.currentThread().interrupt();
                 }
             }
+  	   long end = System.currentTimeMillis();
+ 	   System.out.println("Elapsed Time: " + ((end - start) / 1000));
+   	   Client.main_ref.UpdateText("Client Output Thread Elapsed Time: " + ((end - start) / 1000) + "s\n");
+
         }
         catch(Exception e){
           System.err.println(e);

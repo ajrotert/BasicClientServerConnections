@@ -6,14 +6,17 @@ public class ClientInput extends Thread
     {
         ObjectInputStream ois = Client.ois;
         try{
-        boolean disconnected = true;
+        	
+        	long start = System.currentTimeMillis();
+
+        	boolean disconnected = true;
             while(disconnected)
             {
                 String message = null;
                 try{message = (String) ois.readObject();}
                 catch(Exception ioe){
                     System.out.println("(Client Input) Server Input Thread " + Thread.currentThread().getId() + ": Server Disconnected");
-                    Client.main_ref.UpdateText("(Client Input) Server Input Thread " + Thread.currentThread().getId() + ": Server Disconnected" + "\n");
+                    Client.main_ref.UpdateText("Client Input Thread " + Thread.currentThread().getId() + ": Disconnected from Server" + "\n");
                     ois.close();
                     disconnected=false;
                 }
@@ -33,6 +36,9 @@ public class ClientInput extends Thread
                     Thread.currentThread().interrupt();
                 }
             }
+       	   long end = System.currentTimeMillis();
+       	   System.out.println("Client Input Thread Elapsed Time: " + ((end - start) / 1000));
+       	   Client.main_ref.UpdateText("Client Input Thread Elapsed Time: " + ((end - start) / 1000) + "s\n");
         }
         catch (IOException ioe){
             System.out.println("(Client Input) Server Input Thread " + Thread.currentThread().getId() + ": Server Error Occured");

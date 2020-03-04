@@ -19,7 +19,7 @@ public class Client
     	PORT = 6013;
         available = true;
         send = null;
-        
+
         String out = "";
         try{
             inetAddress = InetAddress.getLocalHost();
@@ -41,6 +41,8 @@ public class Client
     }
     public void setup()
     {
+        long start = System.currentTimeMillis();
+
     	String out = "";
         
         System.out.println("(Client) Enter an IP Address (127.0.0.1): ");
@@ -117,43 +119,48 @@ public class Client
             main_ref.UpdateText("Connection Failed\n");
             main_ref.UpdateInput();
         }
+        
+   	   	long end = System.currentTimeMillis();
+   	   	System.out.println("Client Thread Elapsed Time: " + ((end - start) / 1000));
+        main_ref.UpdateText("Client Thread Elapsed Time: " + ((end - start) / 1000) + "s\n");
+
         System.out.println("(Client) Ended Session");
-        out ="Ended Session \n";
+        out ="Client Session Ended\n";
         main_ref.UpdateText(out);
     }
         
         
     public static String getNetworkAddress(){
         String network_IP = ""; 
-        try
-        { 
-            URL url_name = new URL("http://bot.whatismyipaddress.com"); 
-  
-            BufferedReader sc = 
-            new BufferedReader(new InputStreamReader(url_name.openStream())); 
-  
-            // reads system IPAddress 
-            network_IP = sc.readLine().trim(); 
-        } 
-        catch (Exception e) 
-        { 
-        	
-        	try{
-        		URL url_name = new URL("http://checkip.amazonaws.com"); 
-        		  
-                BufferedReader sc = 
-                new BufferedReader(new InputStreamReader(url_name.openStream())); 
-      
-                // reads system IPAddress 
-                network_IP = sc.readLine().trim(); 
-        	}
-        	catch(Exception ee)
-        	{
-        		System.out.println("Cannot find network IP address");
-                main_ref.UpdateText("Cannot find network IP address\n");
-        	}
-            
-        } 
+
+	        try
+	        { 
+	            URL url_name = new URL("http://bot.whatismyipaddress.com"); 
+	  
+	            BufferedReader sc = 
+	            new BufferedReader(new InputStreamReader(url_name.openStream())); 
+	  
+	            network_IP = sc.readLine().trim(); 
+	        } 
+	        catch (Exception e) 
+	        { 
+	        	
+	        	try{
+	        		URL url_name = new URL("http://checkip.amazonaws.com"); 
+	        		  
+	                BufferedReader sc = 
+	                new BufferedReader(new InputStreamReader(url_name.openStream())); 
+	      
+	                // reads system IPAddress 
+	                network_IP = sc.readLine().trim(); 
+	        	}
+	        	catch(Exception ee)
+	        	{
+	        		System.out.println("Cannot find network IP address");
+	                main_ref.UpdateText("Cannot find network IP address\n");
+	        	}
+	            
+	        } 
         return network_IP;
     }
 }

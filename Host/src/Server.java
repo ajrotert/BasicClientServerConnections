@@ -43,6 +43,8 @@ public class Server
         
     }
     public void setup(){
+    	long start = System.currentTimeMillis();
+
         NewClient cl = null;
         try{
             socket = new ServerSocket(PORT);
@@ -90,6 +92,10 @@ public class Server
             System.out.println(ioe);
         }
 
+        long end = System.currentTimeMillis();
+        System.out.println("Elapsed Time: " + ((end - start) / 1000));
+        Server.main_ref.UpdateText("Server Thread(" + Thread.currentThread().getId() + ") Elapsed Time: " + ((end - start) / 1000) + "s\n");
+        
         System.out.println("Server Stopped");
         main_ref.UpdateText("Server Stopped\n");
     }

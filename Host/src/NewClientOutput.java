@@ -3,6 +3,8 @@ import java.io.*;
 public class NewClientOutput extends Thread
 {
     public void run(){
+    	long start = System.currentTimeMillis();
+
         ObjectOutputStream oos = NewClient.oos;
         int local_send = Server.send_number+1;
         try{
@@ -11,8 +13,8 @@ public class NewClientOutput extends Thread
             {
                 if(Server.send!=null && Server.send_number>= local_send)
                 {
-                    System.out.println("New Client Output: Message Recieved");
-                    Server.main_ref.UpdateText("New Client Output: Message Recieved\n");
+                    System.out.println("New Client Output " + Thread.currentThread().getId() + ": Message Recieved");
+                    Server.main_ref.UpdateText("New Client Output " + Thread.currentThread().getId() + ": Message Recieved\n");
                     oos.writeObject(Server.send);
                     oos.flush();
                     local_send++;
@@ -31,6 +33,10 @@ public class NewClientOutput extends Thread
         }
         catch(Exception e){
         System.out.println("ERROR");}
+        
+	    long end = System.currentTimeMillis(); 
+	    System.out.println("Elapsed Time: " + ((end - start) / 1000));
+	    Server.main_ref.UpdateText("New Client Output(" + Thread.currentThread().getId() + ") Thread Elapsed Time: " + ((end - start) / 1000) + "s\n");
     }
 
 }

@@ -4,8 +4,10 @@ public class NewClientInput extends Thread
 {
     public void run(){
         ObjectInputStream ois = NewClient.ois;
-        
+        long start = System.currentTimeMillis();
+		    
         try{
+
         boolean disconnected = true;
             while(disconnected)
             {
@@ -41,5 +43,8 @@ public class NewClientInput extends Thread
             System.out.println(ioe);
 
         }
+	    long end = System.currentTimeMillis();
+	    System.out.println("New Client input thread Elapsed Time: " + ((end - start) / 1000));
+	    Server.main_ref.UpdateText("New Client Input Thread(" + Thread.currentThread().getId() + ") Elapsed Time: " + ((end - start) / 1000) + "s\n");
     }
 }

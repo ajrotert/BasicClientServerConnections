@@ -9,6 +9,9 @@ public class Client_Runtime extends Thread {
 		//Keeps Thread Alive
 		//Probably Better Methods
 		boolean run = true;
+		
+	   long start = System.currentTimeMillis();
+		
 		while(run)
 		{
 			try
@@ -18,6 +21,10 @@ public class Client_Runtime extends Thread {
 	        catch(Exception ignore){run = false;}
 		}
 		
+	    long end = System.currentTimeMillis();
+		
+	    System.out.println("Elapsed Time: " + ((end - start) / 1000));
+	    
 		System.out.println("(Client_Runtime) Runtime Ended");
 	}
 }

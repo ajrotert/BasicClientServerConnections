@@ -7,6 +7,8 @@ public class NewClient extends Thread{
     public static boolean available;
     public void run()
     {
+    	long start = System.currentTimeMillis();
+
         try{
             System.out.println("Client Thread " + Thread.currentThread().getId() + ": Waiting for connection");
             Server.main_ref.UpdateText("Client Thread " + Thread.currentThread().getId() + ": Waiting for connection\n");
@@ -31,7 +33,7 @@ public class NewClient extends Thread{
             NCO.start();
             
             available =true;
-            while(Server.available)
+            while(Server.available && !client.isClosed())
             {
                 try
                 {
@@ -58,6 +60,9 @@ public class NewClient extends Thread{
             System.out.println(ioe);
 
         }
+	    long end = System.currentTimeMillis();
+	    System.out.println("New Client Elapsed Time: " + ((end - start) / 1000));
+	    Server.main_ref.UpdateText("New Client Thread(" + Thread.currentThread().getId() + ") Elapsed Time: " + ((end - start) / 1000) + "s\n");
     }
 
 }
