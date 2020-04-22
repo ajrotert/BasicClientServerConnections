@@ -1,0 +1,27 @@
+*{
+	    -fx-background-color: #d7d7db;
+	    -fx-text-fill: black;
+	    -fx-spacing: 2px;
+}
+.root {
+    -fx-font-size: 14px;
+    -fx-font-family: sans-serif;
+    -fx-padding: 10px;
+}
+.commands {
+	-fx-text-fill: #022E6D;
+}
+.button {
+	-fx-background-color: #022E6D;
+	-fx-text-fill: white;
+}
+.button:hover{
+	-fx-background-color: #0066ff;
+}
+.input{
+	-fx-text-fill: #0066ff;
+}
+.output{
+	-fx-border-color: #022E6D;
+	-fx-border-width: .5;
+}

@@ -47,10 +47,13 @@ public class Main extends Application {
         window.setTitle("Host Computer");
         
         InputLabel = new Label(CLIST);
+        InputLabel.getStyleClass().add("commands");
         OutputLabel = new Label();
         button = new Button("Send");
         inputs = new TextField();
+        inputs.getStyleClass().add("input");
         scroller = new ScrollPane();
+        scroller.getStyleClass().add("output");
         button.setOnAction(e->{
         String usr = inputs.getText();
         String out = OutputLabel.getText();
@@ -104,6 +107,8 @@ public class Main extends Application {
  
         Scene scene = new Scene(layout, 350, 400);
  
+        scene.getStylesheets().add(getClass().getResource("default.css").toExternalForm());
+        
         window.setScene(scene);
         window.show();
 

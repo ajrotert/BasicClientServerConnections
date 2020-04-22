@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
  
 public class Main extends Application {
@@ -49,12 +48,15 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
         window.setTitle("Client Computer");
-                
+                     
         InputLabel = new Label(CLIST);
+        InputLabel.getStyleClass().add("commands");
         OutputLabel = new Label();
         button = new Button("Send");
         inputs = new TextField();
+        inputs.getStyleClass().add("input");
         scroller = new ScrollPane();
+        scroller.getStyleClass().add("output");
         button.setOnAction(e->{
         String usr = inputs.getText();
         String out = OutputLabel.getText();
@@ -117,7 +119,7 @@ public class Main extends Application {
  
         Scene scene = new Scene(layout, 350, 400);
  
-        scene.setFill(Color.DARKGRAY);
+        scene.getStylesheets().add(getClass().getResource("default.css").toExternalForm());
         
         window.setScene(scene);
         window.show();
