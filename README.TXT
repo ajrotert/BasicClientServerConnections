@@ -38,3 +38,19 @@ The server starts, clients connect to it. Clients can send messages to server, a
 
 WHATS NEXT:
 I completed my inital goal for this project. The next phase may be to make it a desktop application. 
+
+# Project
+Copyright © 2020 Andrew Rotert. All rights reserved.
+#### Client-Server Chat
+JavaFX working with basic server connections between a host and multiple clients.
+
+- [ ] Published 
+- [x] Completed
+
+
+# Motivation
+Idea formed from Operating Systems class.
+
+
+# Tech
+Built using Object-Oriented Design and Java.
