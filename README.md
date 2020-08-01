@@ -1,5 +1,13 @@
+# Preview
+Simple Speedometer Plus Map                 |  Desktop App
+:-------------------------:|:-------------------------:
+![alt text 1](https://github.com/ajrotert/BasicClientServerConnections/blob/master/ClientHostMessage.gif?raw=true)  |   Java Jar Files
+
+
 PROJECT TITLE: Basic Client Server Connection using JAVA
+
 PURPOSE OF PROJECT: Using java, explore theroies learned in Operating Systems
+
 VERSION or DATE: 1.0.1
 
 ABOUT:
@@ -13,6 +21,7 @@ Download the Host.jar and Client.jar files. Any client can connect to the host b
 
 /************************************************* Command Line Version *************************************************/
 ABOUT:
+
 Server:
     Classes:
                 Server:         This is the parent thread. Its main purpose is to find connections for new clients. It also will starts the server controls and Holds information about its self.
